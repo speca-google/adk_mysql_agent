@@ -33,7 +33,7 @@ MYSQL_PASSWORD = os.environ.get("MYSQL_PASSWORD")
 # Google Cloud AI / Gemini Configuration (from .env)
 GCP_PROJECT_ID = os.environ.get("GOOGLE_CLOUD_PROJECT")
 GCP_LOCATION = os.environ.get("GOOGLE_CLOUD_LOCATION")
-LLM_MODEL = os.environ.get("LLM_MODEL", "gemini-1.5-pro-preview-0409")
+LLM_MODEL = os.environ.get("LLM_MODEL")
 
 # The output filename for the generated prompt context.
 OUTPUT_FILENAME = "mysql_context.txt"
@@ -45,11 +45,14 @@ OUTPUT_FILENAME = "mysql_context.txt"
 def get_accessible_tables(cursor):
     """Fetches a list of accessible tables for the current database."""
     print("  Fetching table list...")
-    # Using the hardcoded list as requested in the example.
-    # This ensures focus on the key tables for the agent.
-    tables = ['proceso', 'tramite', 'etapa', 'tarea']
-    print(f"  > Found tables: {', '.join(tables)}")
-    return tables
+    # In MySQL, DATABASE() returns the current database name.
+    cursor.execute("""
+        SELECT table_name
+        FROM information_schema.tables
+        WHERE table_schema = DATABASE() AND table_type = 'BASE TABLE'
+        ORDER BY table_name;
+    """)
+    return [row[0] for row in cursor.fetchall()]
 
 def get_table_schema(cursor, table_name: str):
     """Retrieves the schema (columns and data types) for a specific table."""

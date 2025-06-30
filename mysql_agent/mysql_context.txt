@@ -1,0 +1,416 @@
+## OVERVIEW:
+This database schema describes a comprehensive system for tracking Formula 1 or similar open-wheel racing events. It meticulously records details about circuits, race seasons, individual races, and the performance of drivers and constructors. Data includes race results, qualifying times, lap times, pit stop details, and championship standings for both drivers and constructors. This schema facilitates in-depth analysis of race history, team and driver performance, and circuit-specific statistics over various seasons.
+
+## DATABASE INFORMATION
+
+### Database Schema:
+
+### Table: `circuits`
+- `circuitId`: **INT(11)**
+- `circuitRef`: **VARCHAR(255)**
+- `name`: **VARCHAR(255)**
+- `location`: **VARCHAR(255)**
+- `country`: **VARCHAR(255)**
+- `lat`: **FLOAT**
+- `lng`: **FLOAT**
+- `alt`: **INT(11)**
+- `url`: **VARCHAR(255)**
+
+### Table: `constructorResults`
+- `constructorResultsId`: **INT(11)**
+- `raceId`: **INT(11)**
+- `constructorId`: **INT(11)**
+- `points`: **FLOAT**
+- `status`: **VARCHAR(255)**
+
+### Table: `constructors`
+- `constructorId`: **INT(11)**
+- `constructorRef`: **VARCHAR(255)**
+- `name`: **VARCHAR(255)**
+- `nationality`: **VARCHAR(255)**
+- `url`: **VARCHAR(255)**
+
+### Table: `constructorStandings`
+- `constructorStandingsId`: **INT(11)**
+- `raceId`: **INT(11)**
+- `constructorId`: **INT(11)**
+- `points`: **FLOAT**
+- `position`: **INT(11)**
+- `positionText`: **VARCHAR(255)**
+- `wins`: **INT(11)**
+
+### Table: `drivers`
+- `driverId`: **INT(11)**
+- `driverRef`: **VARCHAR(255)**
+- `number`: **INT(11)**
+- `code`: **VARCHAR(3)**
+- `forename`: **VARCHAR(255)**
+- `surname`: **VARCHAR(255)**
+- `dob`: **DATE**
+- `nationality`: **VARCHAR(255)**
+- `url`: **VARCHAR(255)**
+
+### Table: `driverStandings`
+- `driverStandingsId`: **INT(11)**
+- `raceId`: **INT(11)**
+- `driverId`: **INT(11)**
+- `points`: **FLOAT**
+- `position`: **INT(11)**
+- `positionText`: **VARCHAR(255)**
+- `wins`: **INT(11)**
+
+### Table: `lapTimes`
+- `raceId`: **INT(11)**
+- `driverId`: **INT(11)**
+- `lap`: **INT(11)**
+- `position`: **INT(11)**
+- `time`: **VARCHAR(255)**
+- `milliseconds`: **INT(11)**
+
+### Table: `pitStops`
+- `raceId`: **INT(11)**
+- `driverId`: **INT(11)**
+- `stop`: **INT(11)**
+- `lap`: **INT(11)**
+- `time`: **TIME**
+- `duration`: **VARCHAR(255)**
+- `milliseconds`: **INT(11)**
+
+### Table: `qualifying`
+- `qualifyId`: **INT(11)**
+- `raceId`: **INT(11)**
+- `driverId`: **INT(11)**
+- `constructorId`: **INT(11)**
+- `number`: **INT(11)**
+- `position`: **INT(11)**
+- `q1`: **VARCHAR(255)**
+- `q2`: **VARCHAR(255)**
+- `q3`: **VARCHAR(255)**
+
+### Table: `races`
+- `raceId`: **INT(11)**
+- `year`: **INT(11)**
+- `round`: **INT(11)**
+- `circuitId`: **INT(11)**
+- `name`: **VARCHAR(255)**
+- `date`: **DATE**
+- `time`: **TIME**
+- `url`: **VARCHAR(255)**
+- `fp1_date`: **DATE**
+- `fp1_time`: **TIME**
+- `fp2_date`: **DATE**
+- `fp2_time`: **TIME**
+- `fp3_date`: **DATE**
+- `fp3_time`: **TIME**
+- `quali_date`: **DATE**
+- `quali_time`: **TIME**
+- `sprint_date`: **DATE**
+- `sprint_time`: **TIME**
+
+### Table: `results`
+- `resultId`: **INT(11)**
+- `raceId`: **INT(11)**
+- `driverId`: **INT(11)**
+- `constructorId`: **INT(11)**
+- `number`: **INT(11)**
+- `grid`: **INT(11)**
+- `position`: **INT(11)**
+- `positionText`: **VARCHAR(255)**
+- `positionOrder`: **INT(11)**
+- `points`: **FLOAT**
+- `laps`: **INT(11)**
+- `time`: **VARCHAR(255)**
+- `milliseconds`: **INT(11)**
+- `fastestLap`: **INT(11)**
+- `rank`: **INT(11)**
+- `fastestLapTime`: **VARCHAR(255)**
+- `fastestLapSpeed`: **VARCHAR(255)**
+- `statusId`: **INT(11)**
+
+### Table: `seasons`
+- `year`: **INT(11)**
+- `url`: **VARCHAR(255)**
+
+### Table: `sprintResults`
+- `sprintResultId`: **INT(11)**
+- `raceId`: **INT(11)**
+- `driverId`: **INT(11)**
+- `constructorId`: **INT(11)**
+- `number`: **INT(11)**
+- `grid`: **INT(11)**
+- `position`: **INT(11)**
+- `positionText`: **VARCHAR(255)**
+- `positionOrder`: **INT(11)**
+- `points`: **FLOAT**
+- `laps`: **INT(11)**
+- `time`: **VARCHAR(255)**
+- `milliseconds`: **INT(11)**
+- `fastestLap`: **INT(11)**
+- `fastestLapTime`: **VARCHAR(255)**
+- `statusId`: **INT(11)**
+
+### Table: `status`
+- `statusId`: **INT(11)**
+- `status`: **VARCHAR(255)**
+
+---
+## Table Data Samples:
+
+### Samples for table `circuits`:
+| circuitId | circuitRef | name | location | country | lat | lng | alt | url |
+|---|---|---|---|---|---|---|---|---|
+| 1 | albert_park | Albert Park Grand Prix Circuit | Melbourne | Australia | -37.8497 | 144.968 | 10 | http://en.wikipedia.org/wiki/Melbourne_Grand_Prix_Circuit |
+| 2 | sepang | Sepang International Circuit | Kuala Lumpur | Malaysia | 2.76083 | 101.738 | 18 | http://en.wikipedia.org/wiki/Sepang_International_Circuit |
+| 3 | bahrain | Bahrain International Circuit | Sakhir | Bahrain | 26.0325 | 50.5106 | 7 | http://en.wikipedia.org/wiki/Bahrain_International_Circuit |
+
+### Samples for table `constructorResults`:
+| constructorResultsId | raceId | constructorId | points | status |
+|---|---|---|---|---|
+| 1 | 18 | 1 | 14.0 | None |
+| 2 | 18 | 2 | 8.0 | None |
+| 3 | 18 | 3 | 9.0 | None |
+
+### Samples for table `constructors`:
+| constructorId | constructorRef | name | nationality | url |
+|---|---|---|---|---|
+| 1 | mclaren | McLaren | British | http://en.wikipedia.org/wiki/McLaren |
+| 2 | bmw_sauber | BMW Sauber | German | http://en.wikipedia.org/wiki/BMW_Sauber |
+| 3 | williams | Williams | British | http://en.wikipedia.org/wiki/Williams_Grand_Prix_Engineering |
+
+### Samples for table `constructorStandings`:
+| constructorStandingsId | raceId | constructorId | points | position | positionText | wins |
+|---|---|---|---|---|---|---|
+| 1 | 18 | 1 | 14.0 | 1 | 1 | 1 |
+| 2 | 18 | 2 | 8.0 | 3 | 3 | 0 |
+| 3 | 18 | 3 | 9.0 | 2 | 2 | 0 |
+
+### Samples for table `drivers`:
+| driverId | driverRef | number | code | forename | surname | dob | nationality | url |
+|---|---|---|---|---|---|---|---|---|
+| 1 | hamilton | 44 | HAM | Lewis | Hamilton | 1985-01-07 | British | http://en.wikipedia.org/wiki/Lewis_Hamilton |
+| 2 | heidfeld | None | HEI | Nick | Heidfeld | 1977-05-10 | German | http://en.wikipedia.org/wiki/Nick_Heidfeld |
+| 3 | rosberg | 6 | ROS | Nico | Rosberg | 1985-06-27 | German | http://en.wikipedia.org/wiki/Nico_Rosberg |
+
+### Samples for table `driverStandings`:
+| driverStandingsId | raceId | driverId | points | position | positionText | wins |
+|---|---|---|---|---|---|---|
+| 1 | 18 | 1 | 10.0 | 1 | 1 | 1 |
+| 2 | 18 | 2 | 8.0 | 2 | 2 | 0 |
+| 3 | 18 | 3 | 6.0 | 3 | 3 | 0 |
+
+### Samples for table `lapTimes`:
+| raceId | driverId | lap | position | time | milliseconds |
+|---|---|---|---|---|---|
+| 841 | 20 | 1 | 1 | 1:38.109 | 98109 |
+| 841 | 20 | 2 | 1 | 1:33.006 | 93006 |
+| 841 | 20 | 3 | 1 | 1:32.713 | 92713 |
+
+### Samples for table `pitStops`:
+| raceId | driverId | stop | lap | time | duration | milliseconds |
+|---|---|---|---|---|---|---|
+| 841 | 153 | 1 | 1 | 17:05:23 | 26.898 | 26898 |
+| 841 | 30 | 1 | 1 | 17:05:52 | 25.021 | 25021 |
+| 841 | 17 | 1 | 11 | 17:20:48 | 23.426 | 23426 |
+
+### Samples for table `qualifying`:
+| qualifyId | raceId | driverId | constructorId | number | position | q1 | q2 | q3 |
+|---|---|---|---|---|---|---|---|---|
+| 1 | 18 | 1 | 1 | 22 | 1 | 1:26.572 | 1:25.187 | 1:26.714 |
+| 2 | 18 | 9 | 2 | 4 | 2 | 1:26.103 | 1:25.315 | 1:26.869 |
+| 3 | 18 | 5 | 1 | 23 | 3 | 1:25.664 | 1:25.452 | 1:27.079 |
+
+### Samples for table `races`:
+| raceId | year | round | circuitId | name | date | time | url | fp1_date | fp1_time | fp2_date | fp2_time | fp3_date | fp3_time | quali_date | quali_time | sprint_date | sprint_time |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 1 | 2009 | 1 | 1 | Australian Grand Prix | 2009-03-29 | 6:00:00 | http://en.wikipedia.org/wiki/2009_Australian_Grand_Prix | None | None | None | None | None | None | None | None | None | None |
+| 2 | 2009 | 2 | 2 | Malaysian Grand Prix | 2009-04-05 | 9:00:00 | http://en.wikipedia.org/wiki/2009_Malaysian_Grand_Prix | None | None | None | None | None | None | None | None | None | None |
+| 3 | 2009 | 3 | 17 | Chinese Grand Prix | 2009-04-19 | 7:00:00 | http://en.wikipedia.org/wiki/2009_Chinese_Grand_Prix | None | None | None | None | None | None | None | None | None | None |
+
+### Samples for table `results`:
+| resultId | raceId | driverId | constructorId | number | grid | position | positionText | positionOrder | points | laps | time | milliseconds | fastestLap | rank | fastestLapTime | fastestLapSpeed | statusId |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 1 | 18 | 1 | 1 | 22 | 1 | 1 | 1 | 1 | 10.0 | 58 | 1:34:50.616 | 5690616 | 39 | 2 | 1:27.452 | 218.300 | 1 |
+| 2 | 18 | 2 | 2 | 3 | 5 | 2 | 2 | 2 | 8.0 | 58 | +5.478 | 5696094 | 41 | 3 | 1:27.739 | 217.586 | 1 |
+| 3 | 18 | 3 | 3 | 7 | 7 | 3 | 3 | 3 | 6.0 | 58 | +8.163 | 5698779 | 41 | 5 | 1:28.090 | 216.719 | 1 |
+
+### Samples for table `seasons`:
+| year | url |
+|---|---|
+| 2009 | http://en.wikipedia.org/wiki/2009_Formula_One_season |
+| 2008 | http://en.wikipedia.org/wiki/2008_Formula_One_season |
+| 2007 | http://en.wikipedia.org/wiki/2007_Formula_One_season |
+
+### Samples for table `sprintResults`:
+| sprintResultId | raceId | driverId | constructorId | number | grid | position | positionText | positionOrder | points | laps | time | milliseconds | fastestLap | fastestLapTime | statusId |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 1 | 1061 | 830 | 9 | 33 | 2 | 1 | 1 | 1 | 3.0 | 17 | 25:38.426 | 1538426 | 14 | 1:30.013 | 1 |
+| 2 | 1061 | 1 | 131 | 44 | 1 | 2 | 2 | 2 | 2.0 | 17 | +1.430 | 1539856 | 17 | 1:29.937 | 1 |
+| 3 | 1061 | 822 | 131 | 77 | 3 | 3 | 3 | 3 | 1.0 | 17 | +7.502 | 1545928 | 17 | 1:29.958 | 1 |
+
+### Samples for table `status`:
+| statusId | status |
+|---|---|
+| 1 | Finished |
+| 2 | Disqualified |
+| 3 | Accident |
+
+---
+## Column Data Analysis:
+
+### Analysis of Table `circuits`:
+- **circuitId**: Numeric. MIN=`1`, MAX=`79`, AVG=`39.36`, Distinct Values=`76`
+- **circuitRef**: Text. Distinct Values=`76`. Top values: `monza`, `donington`, `anderstorp`, `sebring`, `marina_bay`
+- **name**: Text. Distinct Values=`76`. Top values: `Autodromo Nazionale di Monza`, `Donington Park`, `Scandinavian Raceway`, `Sebring International Raceway`, `Marina Bay Street Circuit`
+- **location**: Text. Distinct Values=`74`. Top values: `Barcelona`, `California`, `Monza`, `Castle Donington`, `Anderstorp`
+- **country**: Text. Distinct Values=`34`. Top values: `USA`, `France`, `Spain`, `Portugal`, `UK`
+- **lat**: Numeric. MIN=`-37.849700927734375`, MAX=`57.26530075073242`, AVG=`33.41`, Distinct Values=`76`
+- **lng**: Numeric. MIN=`-118.18900299072266`, MAX=`144.96800231933594`, AVG=`2.61`, Distinct Values=`76`
+- **alt**: Numeric. MIN=`-7`, MAX=`2227`, AVG=`248.19`, Distinct Values=`65`
+- **url**: Text. Distinct Values=`76`. Top values: `http://en.wikipedia.org/wiki/Circuit_de_Monaco`, `http://en.wikipedia.org/wiki/Jeddah_Street_Circuit`, `http://en.wikipedia.org/wiki/Pedralbes_Circuit`, `http://en.wikipedia.org/wiki/Valencia_Street_Circuit`, `http://en.wikipedia.org/wiki/Aut%C3%B3dromo_Jos%C3%A9_Carlos_Pace`
+
+### Analysis of Table `constructorResults`:
+- **constructorResultsId**: Numeric. MIN=`1`, MAX=`16559`, AVG=`8029.22`, Distinct Values=`12060`
+- **raceId**: Numeric. MIN=`1`, MAX=`1084`, AVG=`500.59`, Distinct Values=`1005`
+- **constructorId**: Numeric. MIN=`1`, MAX=`214`, AVG=`43.69`, Distinct Values=`175`
+- **points**: Numeric. MIN=`0.0`, MAX=`66.0`, AVG=`3.73`, Distinct Values=`54`
+- **status**: Text. Distinct Values=`1`. Top values: `D`
+
+### Analysis of Table `constructors`:
+- **constructorId**: Numeric. MIN=`1`, MAX=`214`, AVG=`107.04`, Distinct Values=`211`
+- **constructorRef**: Text. Distinct Values=`211`. Top values: `olson`, `token`, `lotus-brm`, `porsche`, `spyker_mf1`
+- **name**: Text. Distinct Values=`211`. Top values: `LDS`, `Brabham-Alfa Romeo`, `Trevis`, `Lotus-Pratt &amp; Whitney`, `Connew`
+- **nationality**: Text. Distinct Values=`24`. Top values: `British`, `American`, `Italian`, `French`, `German`
+- **url**: Text. Distinct Values=`174`. Top values: `http://en.wikipedia.org/wiki/Cooper_Car_Company`, `http://en.wikipedia.org/wiki/Team_Lotus`, `http://en.wikipedia.org/wiki/Brabham`, `http://en.wikipedia.org/wiki/De_Tomaso`, `http://en.wikipedia.org/wiki/March_Engineering`
+
+### Analysis of Table `constructorStandings`:
+- **constructorStandingsId**: Numeric. MIN=`1`, MAX=`28252`, AVG=`16463.78`, Distinct Values=`12821`
+- **raceId**: Numeric. MIN=`1`, MAX=`1084`, AVG=`509.61`, Distinct Values=`1004`
+- **constructorId**: Numeric. MIN=`1`, MAX=`214`, AVG=`47.63`, Distinct Values=`159`
+- **points**: Numeric. MIN=`0.0`, MAX=`765.0`, AVG=`32.54`, Distinct Values=`518`
+- **position**: Numeric. MIN=`1`, MAX=`22`, AVG=`7.30`, Distinct Values=`22`
+- **positionText**: Text. Distinct Values=`23`. Top values: `1`, `3`, `2`, `4`, `5`
+- **wins**: Numeric. MIN=`0`, MAX=`19`, AVG=`0.67`, Distinct Values=`20`
+
+### Analysis of Table `drivers`:
+- **driverId**: Numeric. MIN=`1`, MAX=`855`, AVG=`427.55`, Distinct Values=`854`
+- **driverRef**: Text. Distinct Values=`854`. Top values: `landi`, `cheever`, `ryan`, `piper`, `larini`
+- **number**: Numeric. MIN=`2`, MAX=`99`, AVG=`33.10`, Distinct Values=`43`
+- **code**: Text. Distinct Values=`91`. Top values: `MAG`, `HAR`, `ALB`, `BIA`, `VER`
+- **forename**: Text. Distinct Values=`470`. Top values: `John`, `Mike`, `Peter`, `Bill`, `Tony`
+- **surname**: Text. Distinct Values=`795`. Top values: `Taylor`, `Wilson`, `Fittipaldi`, `Brown`, `Brabham`
+- **nationality**: Text. Distinct Values=`42`. Top values: `British`, `American`, `Italian`, `French`, `German`
+- **url**: Text. Distinct Values=`854`. Top values: `http://en.wikipedia.org/wiki/Boy_Hayje`, `http://en.wikipedia.org/wiki/Johnnie_Tolan`, `http://en.wikipedia.org/wiki/Nanni_Galli`, `http://en.wikipedia.org/wiki/Aldo_Gordini`, `http://en.wikipedia.org/wiki/Hernando_da_Silva_Ramos`
+
+### Analysis of Table `driverStandings`:
+- **driverStandingsId**: Numeric. MIN=`1`, MAX=`71521`, AVG=`42117.40`, Distinct Values=`33644`
+- **raceId**: Numeric. MIN=`1`, MAX=`1084`, AVG=`565.16`, Distinct Values=`1068`
+- **driverId**: Numeric. MIN=`1`, MAX=`855`, AVG=`301.12`, Distinct Values=`847`
+- **points**: Numeric. MIN=`0.0`, MAX=`413.0`, AVG=`12.84`, Distinct Values=`403`
+- **position**: Numeric. MIN=`1`, MAX=`108`, AVG=`20.02`, Distinct Values=`108`
+- **positionText**: Text. Distinct Values=`109`. Top values: `1`, `2`, `3`, `4`, `5`
+- **wins**: Numeric. MIN=`0`, MAX=`13`, AVG=`0.27`, Distinct Values=`14`
+
+### Analysis of Table `lapTimes`:
+- **raceId**: Numeric. MIN=`1`, MAX=`1084`, AVG=`539.27`, Distinct Values=`487`
+- **driverId**: Numeric. MIN=`1`, MAX=`855`, AVG=`275.88`, Distinct Values=`136`
+- **lap**: Numeric. MIN=`1`, MAX=`87`, AVG=`29.96`, Distinct Values=`87`
+- **position**: Numeric. MIN=`1`, MAX=`24`, AVG=`9.65`, Distinct Values=`24`
+- **time**: Text. Distinct Values=`73847`. Top values: `1:21.571`, `1:23.063`, `1:24.037`, `1:23.464`, `1:23.088`
+- **milliseconds**: Numeric. MIN=`55404`, MAX=`7507547`, AVG=`95689.12`, Distinct Values=`73847`
+
+### Analysis of Table `pitStops`:
+- **raceId**: Numeric. MIN=`841`, MAX=`1084`, AVG=`950.26`, Distinct Values=`228`
+- **driverId**: Numeric. MIN=`1`, MAX=`855`, AVG=`503.40`, Distinct Values=`69`
+- **stop**: Numeric. MIN=`1`, MAX=`6`, AVG=`1.76`, Distinct Values=`6`
+- **lap**: Numeric. MIN=`1`, MAX=`78`, AVG=`25.15`, Distinct Values=`74`
+- **duration**: Text. Distinct Values=`6535`. Top values: `22.745`, `22.105`, `22.534`, `22.303`, `22.684`
+- **milliseconds**: Numeric. MIN=`12897`, MAX=`3069017`, AVG=`73747.46`, Distinct Values=`6535`
+
+### Analysis of Table `qualifying`:
+- **qualifyId**: Numeric. MIN=`1`, MAX=`9412`, AVG=`4687.87`, Distinct Values=`9355`
+- **raceId**: Numeric. MIN=`1`, MAX=`1084`, AVG=`564.84`, Distinct Values=`437`
+- **driverId**: Numeric. MIN=`1`, MAX=`855`, AVG=`293.80`, Distinct Values=`165`
+- **constructorId**: Numeric. MIN=`1`, MAX=`214`, AVG=`42.29`, Distinct Values=`46`
+- **number**: Numeric. MIN=`0`, MAX=`99`, AVG=`17.70`, Distinct Values=`53`
+- **position**: Numeric. MIN=`1`, MAX=`28`, AVG=`11.28`, Distinct Values=`28`
+- **q1**: Text. Distinct Values=`8251`. Top values: ``, `1:20.382`, `1:20.888`, `1:15.644`, `1:14.839`
+- **q2**: Text. Distinct Values=`4729`. Top values: ``, `1:12.188`, `1:15.150`, `1:15.508`, `1:15.322`
+- **q3**: Text. Distinct Values=`2972`. Top values: ``, `1:38.513`, `1:35.766`, `1:31.478`, `1:21.049`
+
+### Analysis of Table `races`:
+- **raceId**: Numeric. MIN=`1`, MAX=`1096`, AVG=`542.02`, Distinct Values=`1079`
+- **year**: Numeric. MIN=`1950`, MAX=`2022`, AVG=`1991.39`, Distinct Values=`73`
+- **round**: Numeric. MIN=`1`, MAX=`22`, AVG=`8.43`, Distinct Values=`22`
+- **circuitId**: Numeric. MIN=`1`, MAX=`79`, AVG=`23.49`, Distinct Values=`76`
+- **name**: Text. Distinct Values=`53`. Top values: `British Grand Prix`, `Italian Grand Prix`, `Monaco Grand Prix`, `Belgian Grand Prix`, `German Grand Prix`
+- **url**: Text. Distinct Values=`1079`. Top values: `http://en.wikipedia.org/wiki/1962_British_Grand_Prix`, `http://en.wikipedia.org/wiki/2020_Abu_Dhabi_Grand_Prix`, `http://en.wikipedia.org/wiki/1987_Brazilian_Grand_Prix`, `http://en.wikipedia.org/wiki/1997_British_Grand_Prix`, `http://en.wikipedia.org/wiki/1953_Argentine_Grand_Prix`
+
+### Analysis of Table `results`:
+- **resultId**: Numeric. MIN=`1`, MAX=`25625`, AVG=`12811.30`, Distinct Values=`25620`
+- **raceId**: Numeric. MIN=`1`, MAX=`1084`, AVG=`526.62`, Distinct Values=`1068`
+- **driverId**: Numeric. MIN=`1`, MAX=`855`, AVG=`257.85`, Distinct Values=`854`
+- **constructorId**: Numeric. MIN=`1`, MAX=`214`, AVG=`48.23`, Distinct Values=`210`
+- **number**: Numeric. MIN=`0`, MAX=`208`, AVG=`17.73`, Distinct Values=`129`
+- **grid**: Numeric. MIN=`0`, MAX=`34`, AVG=`11.19`, Distinct Values=`35`
+- **position**: Numeric. MIN=`1`, MAX=`33`, AVG=`7.93`, Distinct Values=`33`
+- **positionText**: Text. Distinct Values=`39`. Top values: `R`, `F`, `3`, `4`, `2`
+- **positionOrder**: Numeric. MIN=`1`, MAX=`39`, AVG=`12.90`, Distinct Values=`39`
+- **points**: Numeric. MIN=`0.0`, MAX=`50.0`, AVG=`1.85`, Distinct Values=`39`
+- **laps**: Numeric. MIN=`0`, MAX=`200`, AVG=`45.92`, Distinct Values=`172`
+- **time**: Text. Distinct Values=`6696`. Top values: `+8:22.19`, `+5.7`, `+0.7`, `+1:29.6`, `+46.2`
+- **milliseconds**: Numeric. MIN=`207071`, MAX=`15090540`, AVG=`6227591.73`, Distinct Values=`6904`
+- **fastestLap**: Numeric. MIN=`2`, MAX=`85`, AVG=`42.52`, Distinct Values=`79`
+- **rank**: Numeric. MIN=`0`, MAX=`24`, AVG=`10.43`, Distinct Values=`25`
+- **fastestLapTime**: Text. Distinct Values=`6589`. Top values: `1:43.026`, `1:18.262`, `1:17.495`, `1:17.841`, `1:18.023`
+- **fastestLapSpeed**: Text. Distinct Values=`6751`. Top values: `194.706`, `189.423`, `196.785`, `200.091`, `195.933`
+- **statusId**: Numeric. MIN=`1`, MAX=`140`, AVG=`17.61`, Distinct Values=`136`
+
+### Analysis of Table `seasons`:
+- **year**: Numeric. MIN=`1950`, MAX=`2022`, AVG=`1986.00`, Distinct Values=`73`
+- **url**: Text. Distinct Values=`73`. Top values: `http://en.wikipedia.org/wiki/1973_Formula_One_season`, `http://en.wikipedia.org/wiki/1989_Formula_One_season`, `http://en.wikipedia.org/wiki/2005_Formula_One_season`, `http://en.wikipedia.org/wiki/2021_Formula_One_World_Championship`, `http://en.wikipedia.org/wiki/1957_Formula_One_season`
+
+### Analysis of Table `sprintResults`:
+- **sprintResultId**: Numeric. MIN=`1`, MAX=`100`, AVG=`50.50`, Distinct Values=`100`
+- **raceId**: Numeric. MIN=`1061`, MAX=`1084`, AVG=`1071.60`, Distinct Values=`5`
+- **driverId**: Numeric. MIN=`1`, MAX=`855`, AVG=`689.33`, Distinct Values=`24`
+- **constructorId**: Numeric. MIN=`1`, MAX=`214`, AVG=`95.50`, Distinct Values=`10`
+- **number**: Numeric. MIN=`1`, MAX=`99`, AVG=`27.91`, Distinct Values=`25`
+- **grid**: Numeric. MIN=`0`, MAX=`20`, AVG=`10.36`, Distinct Values=`21`
+- **position**: Numeric. MIN=`1`, MAX=`20`, AVG=`10.10`, Distinct Values=`20`
+- **positionText**: Text. Distinct Values=`22`. Top values: `14`, `15`, `16`, `1`, `17`
+- **positionOrder**: Numeric. MIN=`1`, MAX=`20`, AVG=`10.50`, Distinct Values=`20`
+- **points**: Numeric. MIN=`0.0`, MAX=`8.0`, AVG=`0.90`, Distinct Values=`9`
+- **laps**: Numeric. MIN=`0`, MAX=`24`, AVG=`19.95`, Distinct Values=`7`
+- **time**: Text. Distinct Values=`95`. Top values: `26:30.059`, `+54.556`, `+52.179`, `+39.795`, `+34.158`
+- **milliseconds**: Numeric. MIN=`1538426`, MAX=`1891584`, AVG=`1715108.56`, Distinct Values=`95`
+- **fastestLap**: Numeric. MIN=`3`, MAX=`20`, AVG=`10.37`, Distinct Values=`18`
+- **fastestLapTime**: Text. Distinct Values=`97`. Top values: `1:21.437`, `1:10.367`, `1:32.210`, `1:25.349`, `1:13.140`
+- **statusId**: Numeric. MIN=`1`, MAX=`130`, AVG=`3.45`, Distinct Values=`6`
+
+### Analysis of Table `status`:
+- **statusId**: Numeric. MIN=`1`, MAX=`140`, AVG=`70.73`, Distinct Values=`138`
+- **status**: Text. Distinct Values=`138`. Top values: `Safety`, `Oil pump`, `+4 Laps`, `Water pipe`, `Driveshaft`
+
+---
+## IMPORTANT MYSQL NOTES:
+*   Always enclose table and column names in backticks (`` ` ``) to avoid conflicts with reserved keywords and special characters.
+*   String literals (text values) must always be enclosed in single quotes (`'`).
+*   The `JOIN` clause is crucial for combining rows from two or more tables based on a related column between them. Understand the relationships (e.g., `raceId`, `driverId`, `constructorId`, `circuitId`, `statusId`) between tables to form correct joins.
+*   Use `LIKE` operator for pattern matching in text fields (e.g., `WHERE name LIKE '%Grand Prix%'`).
+*   Date and time columns (`DATE`, `TIME`, `DATETIME`) can be manipulated using functions like `YEAR()`, `MONTH()`, `DAY()`, `DATEDIFF()`, `CURDATE()`, etc.
+
+## EXAMPLES:
+**Question:** "What are the total points scored by each driver named 'Max Verstappen' across all his races, and list them in descending order?"
+**SQL Query:** "SELECT T1.`forename`, T1.`surname`, SUM(T2.`points`) AS `total_points` FROM `drivers` AS T1 JOIN `results` AS T2 ON T1.`driverId` = T2.`driverId` WHERE T1.`forename` = 'Max' AND T1.`surname` = 'Verstappen' GROUP BY T1.`driverId`, T1.`forename`, T1.`surname` ORDER BY `total_points` DESC;"
+**Question:** "Which constructor has the highest average qualifying position at the 'Autodromo Nazionale di Monza' circuit for races in 2021?"
+**SQL Query:** "SELECT T1.`name` FROM `constructors` AS T1 JOIN `qualifying` AS T2 ON T1.`constructorId` = T2.`constructorId` JOIN `races` AS T3 ON T2.`raceId` = T3.`raceId` JOIN `circuits` AS T4 ON T3.`circuitId` = T4.`circuitId` WHERE T4.`name` = 'Autodromo Nazionale di Monza' AND T3.`year` = 2021 GROUP BY T1.`name` ORDER BY AVG(T2.`position`) ASC LIMIT 1;"
+**Question:** "List all races where a British driver finished in the top 3, along with the driver's full name, their constructor, and their final position."
+**SQL Query:** "SELECT T1.`name` AS `race_name`, T3.`forename`, T3.`surname`, T4.`name` AS `constructor_name`, T2.`position` FROM `races` AS T1 JOIN `results` AS T2 ON T1.`raceId` = T2.`raceId` JOIN `drivers` AS T3 ON T2.`driverId` = T3.`driverId` JOIN `constructors` AS T4 ON T2.`constructorId` = T4.`constructorId` WHERE T3.`nationality` = 'British' AND T2.`position` <= 3 ORDER BY T1.`year`, T1.`round`, T2.`position`;"
+**Question:** "For each race in the year 2020, what was the average lap time (in milliseconds) of all drivers who completed at least 50 laps?"
+**SQL Query:** "SELECT T1.`name` AS `race_name`, AVG(T2.`milliseconds`) AS `average_lap_time_ms` FROM `races` AS T1 JOIN `lapTimes` AS T2 ON T1.`raceId` = T2.`raceId` JOIN `results` AS T3 ON T2.`raceId` = T3.`raceId` AND T2.`driverId` = T3.`driverId` WHERE T1.`year` = 2020 AND T3.`laps` >= 50 GROUP BY T1.`name` ORDER BY `average_lap_time_ms`;"
+**Question:** "Which driver has the highest number of wins in races held in 'Monte Carlo', and how many wins do they have there?"
+**SQL Query:** "SELECT T1.`forename`, T1.`surname`, COUNT(T2.`resultId`) AS `number_of_wins` FROM `drivers` AS T1 JOIN `results` AS T2 ON T1.`driverId` = T2.`driverId` JOIN `races` AS T3 ON T2.`raceId` = T3.`raceId` JOIN `circuits` AS T4 ON T3.`circuitId` = T4.`circuitId` WHERE T4.`location` = 'Monte Carlo' AND T2.`position` = 1 GROUP BY T1.`driverId`, T1.`forename`, T1.`surname` ORDER BY `number_of_wins` DESC LIMIT 1;"
+**Question:** "List the top 5 circuits by the total number of unique constructors that have won a race there."
+**SQL Query:** "SELECT T1.`name` AS `circuit_name`, COUNT(DISTINCT T4.`constructorId`) AS `unique_winning_constructors` FROM `circuits` AS T1 JOIN `races` AS T2 ON T1.`circuitId` = T2.`circuitId` JOIN `results` AS T3 ON T2.`raceId` = T3.`raceId` JOIN `constructors` AS T4 ON T3.`constructorId` = T4.`constructorId` WHERE T3.`position` = 1 GROUP BY T1.`circuitId`, T1.`name` ORDER BY `unique_winning_constructors` DESC LIMIT 5;"
+**Question:** "Which driver had the shortest average pit stop duration (in milliseconds) across all races, considering only drivers with at least 10 pit stops?"
+**SQL Query:** "SELECT T1.`forename`, T1.`surname`, AVG(T2.`milliseconds`) AS `average_pit_stop_duration_ms` FROM `drivers` AS T1 JOIN `pitStops` AS T2 ON T1.`driverId` = T2.`driverId` GROUP BY T1.`driverId`, T1.`forename`, T1.`surname` HAVING COUNT(T2.`milliseconds`) >= 10 ORDER BY `average_pit_stop_duration_ms` ASC LIMIT 1;"

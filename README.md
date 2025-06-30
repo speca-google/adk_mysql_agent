@@ -6,7 +6,7 @@ The key feature of this agent is its use of a "prompt engineering" script that i
 
 ## Project Structure
 ```
-/adk-mysql-agent/                  # Root project folder
+/adk_mysql_agent/                  # Root project folder
 |
 ├── .venv/                         # Virtual environment directory
 |
@@ -82,9 +82,9 @@ GOOGLE_CLOUD_BUCKET="gs://your-agent-bucket" # Bucket for deployment on Agent En
 
 # --- Agent Models ---
 # The model used by the main agent to understand user intent and orchestrate tools.
-ROOT_AGENT_MODEL="gemini-1.5-pro-preview-0409"
+ROOT_AGENT_MODEL="gemini-2.5-flash"
 # The model used by the prompt generator script.
-LLM_MODEL="gemini-1.5-pro-preview-0409"
+LLM_MODEL="gemini-2.5-flash"
 
 # --- MySQL Database Settings ---
 MYSQL_HOST="localhost"           # e.g., localhost or a remote IP/hostname
@@ -98,7 +98,9 @@ MYSQL_PASSWORD="your_db_password" # The password for the database user
 Run the `generate_mysql_prompt.py` script from the project's root directory. It will connect to your MySQL database, collect metadata and samples, and then use Gemini to generate a complete and optimized prompt file.
 
 # Make sure your current directory is the project root
+```
 python mysql_agent/generate_mysql_prompt.py
+````
 
 After execution, a new file named `mysql_prompt.txt` will be created in the `mysql_agent/` directory. This file contains the detailed context about your database schema that the agent will use.
 
