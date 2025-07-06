@@ -47,13 +47,12 @@ cd adk_mysql_agent
 
 It is a good practice to isolate the project's dependencies in a virtual environment.
 
-# Create the virtual environment
-
+Create the virtual environment
 ```
 python -m venv .venv
 ```
 
-# Activate the virtual environment
+Activate the virtual environment
 ```
 # On Windows:
 .venv\Scripts\activate
@@ -97,7 +96,7 @@ MYSQL_PASSWORD="your_db_password" # The password for the database user
 
 Run the `generate_mysql_prompt.py` script from the project's root directory. It will connect to your MySQL database, collect metadata and samples, and then use Gemini to generate a complete and optimized prompt file.
 
-# Make sure your current directory is the project root
+Make sure your current directory is the project root
 ```
 python mysql_agent/generate_mysql_prompt.py
 ````
